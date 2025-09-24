@@ -7,7 +7,8 @@ import numpy as np
 st.title("YOLO Image Detection App :)")
 
 # Load YOLO model
-model = YOLO("best.pt")
+#model = YOLO("best.pt")
+model = YOLO("runs/detect/train16/weights/best.pt")
 # model = YOLO("runs/detect/train73/weights/best.pt")
 #model = YOLO("yolo11n.pt")
 # Upload image
@@ -27,3 +28,9 @@ if uploaded_image is not None:
   st.image(result_image , caption="YOLO Detection Result", use_container_width=True)
   st.success("Detection completed!")
   # Extract detection results
+  boxes = results[0].boxes
+  class_ids = boxes.cls.cpu().numpy().astype(int)
+  class_names = [model.names[i] for i in class_ids]
+  # Count people
+  cat_count = class_names.count("cat")
+  st.write(f"Number of people detected: **{cat_count}**")
