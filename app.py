@@ -31,7 +31,7 @@ if uploaded_image is not None:
   boxes = results[0].boxes
   class_ids = boxes.cls.cpu().numpy().astype(int)
   class_names = [model.names[i] for i in class_ids]
- 
+
   # Count people
   catt_count = class_names.count("catt")
   st.write(f"Number of people detected: **{catt_count}**")
